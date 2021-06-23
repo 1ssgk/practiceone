@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 아래 !DOCTYPE 이 있어야 관련 자동완성을 도와줍니다 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace에 Mapper.class 위치를 명시하여 맵핑?!한다. -->
+<mapper namespace="userMapper">
+
+<!-- Mapper.class에 매소드명이 id 파라미터 타입은 풀패키지명 또는 properties에 설정으로.. -->
+    
+    <!-- USER 리스트 데이터 -->
+    <select id="selectUserList" resultType="map">
+        SELECT *
+          FROM USERDATA;
+    </select>
+
+    <!-- 회원가입 -->
+    <insert id="insertUser" parameterType="java.util.HashMap">
+        INSERT INTO `WORLD`.`USERDATA`
+        (  SYS_ID
+         , USER_NO
+         , ID
+         , NAME
+         , PASSWORD
+         , REM
+        )
+        VALUES
+        ( "100"
+        , (SELECT USERCNT FROM(SELECT IFNULL(MAX(USER_NO),0)+1 AS USERCNT FROM `WORLD`.`USERDATA`) AS SUBA)
+        , #{id}
+        , #{name}
+        , #{password}
+        , #{rem}
+        );
+    </insert>
+
+    <!-- id 중복체크 -->
+    <select id="duplChkUser" resultType="int">
+        SELECT COUNT(*)
+          FROM USERDATA
+         WHERE ID =  #{id};
+    </select>
+    
+</mapper>
