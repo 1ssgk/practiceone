@@ -64,9 +64,11 @@ export default new Vuex.Store({
       //   alert("에러에러에러")
       // })
     },
+    // 로그인 데이터 초기화
     resetLoginData:({commit}) => {
       commit('resetLoginData')
     },
+    //파일 업로드
     uploadFiles:({},payload)=>{
       console.log('업로드 Files',payload)
       let elem = payload
@@ -97,6 +99,7 @@ export default new Vuex.Store({
         })
       }
     },
+    // 파일 다운로드
     downloadFiles:({},payload)=>{
 
       let params = payload
